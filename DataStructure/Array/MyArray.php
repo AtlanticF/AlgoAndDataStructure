@@ -41,6 +41,7 @@ class MyArray
         }
         $this->data = array();
         $this->size = $size;
+        $this->len = 0;
     }
 
     /**
