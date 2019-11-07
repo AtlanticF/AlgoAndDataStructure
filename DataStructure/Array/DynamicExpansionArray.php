@@ -129,8 +129,8 @@ class DynamicExpansionArray
      */
     private function expanse()
     {
-        // 容量扩大为原来的 1.5 倍
-        $this->size = 1.5 * $this->size;
+        // 容量扩大为原来的 2 倍
+        $this->size = 2 * $this->size;
         // 复制原数组中的数据到新数组
         $newData = array();
         for ($i = 0; $i < $this->len; $i++) {
@@ -164,3 +164,15 @@ class DynamicExpansionArray
         return $value;
     }
 }
+
+$obj = new DynamicExpansionArray(5);
+$obj->insert(1, 1);
+$obj->insert(2, 2);
+$obj->insert(3, 3);
+$obj->insert(4, 4);
+$obj->insert(5, 5);
+$obj->insert(6, 6);
+
+$res = $obj->find(4);
+var_dump($res);
+var_dump($obj);
