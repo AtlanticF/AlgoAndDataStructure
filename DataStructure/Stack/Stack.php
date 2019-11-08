@@ -107,6 +107,7 @@ class Stack
     }
 }
 
+// some test
 $obj = new Stack(4);
 $obj->push(1);
 $obj->push(2);
@@ -114,3 +115,8 @@ var_dump($obj);
 $res = $obj->pop();
 var_dump($res);
 var_dump($obj);
+$res = $obj->pop();
+var_dump($res);
+var_dump($obj);
+$res = $obj->pop();
+var_dump($res);
