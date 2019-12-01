@@ -16,7 +16,7 @@ class SimpleLinkedList
     /**
      * @var Node 哨兵节点
      */
-    private $head;
+    public $head;
 
     /**
      * @var int 链表长度
