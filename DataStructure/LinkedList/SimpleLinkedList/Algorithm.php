@@ -25,6 +25,22 @@ class Algorithm
         $this->linkedList = $linkedList;
     }
 
+    /**
+     * 单链表的反转
+     * 
+     * 1. 三个指针： 前驱节点，当前节点，暂存节点 (保证链表不丢失)
+     * 2. 前驱节点为 null，当前节点为 head->next，暂存节点为 null
+     * 3. 保存头节点，反转后指向新的链表，head = linkList->head
+     * 4. 断开头节点，head->next = null
+     * 5. 遍历当 curNode 不为 null
+     * 6. 暂存下后面的链表，remainNode = curNode->next
+     * 7. 反转，curNode->next = preNode
+     * 8. 更新前驱节点，preNode = curNode
+     * 9. 更新当前节点，curNode = remainNode
+     * 10. 反转后的链表为 preNode，将头结点与反转后链表相连，head->next = preNode
+     * 
+     * @return bool
+     */
     public function reverse()
     {
         if (null === $this->linkedList) {
@@ -63,7 +79,17 @@ class Algorithm
         
         return true;
     }
-    
+
+    /**
+     * 单链表环的判断 | 找到环的入口
+     * 
+     * 1. 快慢指针 fast, slow 从表头开始前进，快指针步长为 2，慢指针步长为 1
+     * 2. 当快指针没有走到链表尾部，即 fast != null && fast->next != null，一直前进
+     * 3. 当快慢指针相遇，即 fast === slow 链表中存在环
+     * 4. 相遇点将一个指针移动到头结点，两指针步长都为 1，再次相遇的地方为环的入口
+     * 
+     * @return bool|Node|null
+     */
     public function circle()
     {
         if (null === $this->linkedList) {
@@ -95,6 +121,9 @@ class Algorithm
             while ($fast != null && $fast !== $slow) {
                 $fast = $fast->next;
                 $slow = $slow->next;
+                if ($fast === $slow) {
+                    break;
+                }
             }
             
             return $fast;
@@ -157,7 +186,17 @@ class Algorithm
         
         return $mergedList;
     }
-    
+
+    /**
+     * 删除链表中倒数第 k 个节点
+     * 
+     * 1. 快指针移动到正数第 k 个节点的位置
+     * 2. 快慢指针同时开始移动，直到快指针到链表尾部
+     * 3. 此时慢指针后的节点即倒数第 k 个节点 slow->next = slow->next->next
+     * 
+     * @param int $index
+     * @return bool
+     */
     public function delLastKth(int $index)
     {
         if ($index <= 0) {
