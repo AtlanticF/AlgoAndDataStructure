@@ -3,7 +3,7 @@
  * 文件监控 检查 mtime 方式
  */
 
-$monitor_dir = __DIR__ ;
+$monitor_dir = __DIR__;
 $last_mtime = time();
 function check()
 {

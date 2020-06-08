@@ -12,19 +12,19 @@ class HttpServer
     protected $port;
     // 静态文件目录的绝对路径
     protected $webRoot;
-    
+
     public function __construct(string $host, int $port, string $webRoot)
     {
         $this->host = $host;
         $this->port = $port;
         $this->webRoot = $webRoot;
     }
-    
+
     public function start()
     {
         // 创建 socket
         $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-        
+
         if ($socket < 0) {
             echo "Error: create socket, " . socket_strerror(socket_last_error($socket)) . "\n";
             exit();
@@ -39,9 +39,9 @@ class HttpServer
             echo "Error: listen socket, " . socket_strerror(socket_last_error($socket)) . "\n";
             exit();
         }
-        
+
         echo "{$this->host}:{$this->port} server start\n";
-        
+
         while (true) {
             $client = null;
             try {
@@ -51,7 +51,7 @@ class HttpServer
                 echo $e->getMessage();
                 echo "Error: accept socket, " . socket_strerror(socket_last_error($socket)) . "\n";
             }
-            
+
             try {
                 // 从 socket 读数据
                 $request = socket_read($client, 1024);
@@ -67,7 +67,7 @@ class HttpServer
             }
         }
     }
-    
+
     public function requestHandler($request)
     {
         file_put_contents('/var/log/php-server/debug.log', $request . "\n", FILE_APPEND);
@@ -77,7 +77,7 @@ class HttpServer
         if (count($requestArr) < 2) {
             return '';
         }
-        
+
         $uri = $requestArr[1];
         if ($uri == '/favicon.ico') {
             return $this->addHeader('favicon');
@@ -96,13 +96,13 @@ class HttpServer
             return $this->notFound();
         }
     }
-    
+
     protected function addHeader($content)
     {
         $header = "HTTP/1.1 200 OK\r\nContent-type: text/html; charset=utf-8\r\n\r\n";
         return $header . $content;
     }
-    
+
     protected function notFound()
     {
         $content = '<h1> File Not Found </h1>';

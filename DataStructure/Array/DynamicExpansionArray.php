@@ -1,7 +1,7 @@
 <?php
 /**
  * 支持动态扩容的数组
- * 
+ *
  * 1. 插入数据时, 如果数组已满, 申请 1.5 倍大小的内存存放新数据
  */
 
@@ -24,7 +24,7 @@ class DynamicExpansionArray
 
     /**
      * 初始化数组
-     * 
+     *
      * DynamicExpansionArray constructor.
      * @param int $size
      * @throws Exception
@@ -34,7 +34,7 @@ class DynamicExpansionArray
         if ($size <= 0) {
             throw new Exception('Invalid param $size');
         }
-        
+
         $this->size = $size;
         $this->len = 0;
         $this->data = array();
@@ -42,7 +42,7 @@ class DynamicExpansionArray
 
     /**
      * 是否超出索引下标
-     * 
+     *
      * @param int $index
      * @return bool
      */
@@ -51,13 +51,13 @@ class DynamicExpansionArray
         if ($index < 0 || $index >= $this->size) {
             return true;
         }
-        
+
         return false;
     }
 
     /**
      * 数组是否已满
-     * 
+     *
      * @return bool
      */
     private function full(): bool
@@ -65,13 +65,13 @@ class DynamicExpansionArray
         if ($this->len === $this->size) {
             return true;
         }
-        
+
         return false;
     }
 
     /**
      * 获取当前数组长度
-     * 
+     *
      * @return int
      */
     public function getLen(): int
@@ -81,46 +81,46 @@ class DynamicExpansionArray
 
     /**
      * 查找第 k 个元素
-     * 
+     *
      * @param int $position
      * @return string|null
      * @throws Exception
      */
-    public function find(int $position): ?string 
+    public function find(int $position): ?string
     {
         $index = $position - 1;
         if (true === $this->outOfRange($index)) {
             throw new Exception('Index out of range');
         }
-        
+
         return $this->data[$index];
     }
 
     /**
      * 在第 k 个位置插入数据
-     * 
+     *
      * @param int $position
      * @param string|null $value
      * @return int|null
      * @throws Exception
      */
-    public function insert(int $position, ?string $value): ?int 
+    public function insert(int $position, ?string $value): ?int
     {
         if ($this->full()) {
             $this->expanse();
         }
-        
+
         $index = $position - 1;
         if ($this->outOfRange($index)) {
             throw new Exception('Index out of range');
         }
-        
+
         for ($i = $this->len - 1; $i >= $index; $i--) {
             $this->data[$i + 1] = $this->data[$i];
         }
         $this->data[$index] = $value;
         $this->len++;
-        
+
         return $value;
     }
 
@@ -134,7 +134,7 @@ class DynamicExpansionArray
         // 复制原数组中的数据到新数组
         $newData = array();
         for ($i = 0; $i < $this->len; $i++) {
-            $newData[$i] = $this->data[$i]; 
+            $newData[$i] = $this->data[$i];
         }
         unset($this->data);
         $this->data = $newData;
@@ -142,25 +142,25 @@ class DynamicExpansionArray
 
     /**
      * 删除第 k 个位置的元素
-     * 
+     *
      * @param int $position
      * @return string|null
      * @throws Exception
      */
-    public function delete(int $position): ?string 
+    public function delete(int $position): ?string
     {
         $index = $position - 1;
         if ($this->outOfRange($index)) {
             throw new Exception('Index out of range');
         }
-        
+
         $value = $this->data[$index];
         for ($i = $index; $i < $this->len - 1; $i++) {
             $this->data[$i] = $this->data[$i + 1];
         }
         $this->len--;
         unset($this->data[$this->len - 1]);
-        
+
         return $value;
     }
 }

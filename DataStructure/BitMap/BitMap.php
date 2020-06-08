@@ -23,7 +23,7 @@ class BitMap
 
     /**
      * 将 value 对应的 bit 位置为 1
-     * 
+     *
      * @param int $value
      */
     public function set(int $value): void
@@ -38,7 +38,7 @@ class BitMap
 
     /**
      * value 对应的 bit 位是否已存在
-     * 
+     *
      * @param int $value
      * @return bool
      */
@@ -51,7 +51,7 @@ class BitMap
         if ($bin[strlen($bin) - $bitPos - 1] == 1) {
             return true;
         }
-        
+
         return false;
     }
 }

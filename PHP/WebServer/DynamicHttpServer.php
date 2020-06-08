@@ -14,7 +14,7 @@ class DynamicHttpServer extends HttpServer
     protected $cgiRoot;
     // cgi 程序后缀
     protected $cgiExtension = 'php';
-    
+
     public function __construct(string $host, int $port, string $webRoot, string $cgiRoot, string $cgiExtension)
     {
         parent::__construct($host, $port, $webRoot);
@@ -49,7 +49,7 @@ class DynamicHttpServer extends HttpServer
             // 请求参数写入环境变量让 cgi 程序读取
             $this->setEnv($queryString);
             // 扩展成一个二进制?
-            echo 'request file: '. $filename . "\n";
+            echo 'request file: ' . $filename . "\n";
             $response = exec('/usr/bin/php ' . $filename);
 //            $response = pcntl_exec('/usr/bin/php', [$filename]);
             return $this->addHeader($response);
@@ -59,13 +59,13 @@ class DynamicHttpServer extends HttpServer
             return $this->notFound();
         }
     }
-    
+
     protected function cgiProcess($filename)
     {
         if (empty($filename)) {
             return false;
         }
-        
+
         $pid = pcntl_fork();
         if ($pid == 0) {
             // 子进程
@@ -80,23 +80,23 @@ class DynamicHttpServer extends HttpServer
             echo "Error: fork error.\n";
             exit();
         }
-        
+
         return true;
     }
-    
+
     protected function setEnv($queryString)
     {
         if (empty($queryString)) {
             return false;
         }
-        
+
         if (strpos($queryString, '=')) {
             putenv("QUERY_STRING=" . $queryString);
         }
-        
+
         return true;
     }
-    
+
     protected function cgiCheck($uri)
     {
         $info = pathinfo($uri);
@@ -104,7 +104,7 @@ class DynamicHttpServer extends HttpServer
         if ($this->cgiExtension == $extension) {
             return true;
         }
-        
+
         return false;
     }
 }

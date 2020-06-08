@@ -2,7 +2,7 @@
 /**
  * 简单的二分查找
  * 时间复杂度 O(logN)
- * 
+ *
  * 1. 依赖数据有序
  * 2. 依赖数组数据结构，链表查找复杂度很大
  * 3. 静态数据，没有频繁插入删除操作；一次排序，多次二分查找，排序的性能被均摊，二分查找的边际成本会很低
@@ -14,7 +14,7 @@ class SimpleBinarySearch
 {
     /**
      * 数组中元素不重复的情况下二分查找
-     * 
+     *
      * @param array $arr
      * @param int|null $value
      * @return false|float|int
@@ -23,7 +23,7 @@ class SimpleBinarySearch
     {
         $low = 0;
         $high = count($arr) - 1;
-        
+
         while ($low <= $high) {
             $mid = floor(($low + $high) / 2);
             if ($arr[$mid] == $value) {
@@ -34,13 +34,13 @@ class SimpleBinarySearch
                 $high = $mid - 1;
             }
         }
-        
+
         return -1;
     }
 
     /**
      * 递归实现简单的二分查找
-     * 
+     *
      * @param array $arr
      * @param int|null $value
      * @return int|null
@@ -49,11 +49,11 @@ class SimpleBinarySearch
     {
         return $this->searchV2Internally($arr, 0, count($arr) - 1, $value);
     }
-    
+
     private function searchV2Internally(array $arr, int $low, int $high, ?int $value)
     {
         if ($low > $high) return -1;
-        
+
         $mid = $low + (($high - $low) >> 1);
         if ($arr[$mid] == $value) {
             return $value;

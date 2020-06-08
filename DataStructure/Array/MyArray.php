@@ -1,9 +1,9 @@
 <?php
 /**
  * 数组的实现
- * 
+ *
  * 数组是一种线性表数据结构, 用一组连续的内存空间, 存储相同数据类型的数据
- * 
+ *
  * 1. 初始化数组
  * 2. 在第 k 个位置插入数据 O(n)
  * 3. 删除第 k 个位置的数据 O(n)
@@ -29,7 +29,7 @@ class MyArray
 
     /**
      * 初始化数组
-     * 
+     *
      * MyArray constructor.
      * @param int $size
      * @throws Exception
@@ -37,7 +37,7 @@ class MyArray
     public function __construct(int $size)
     {
         if ($size <= 0) {
-            throw new  Exception('Invalid param $size');
+            throw new Exception('Invalid array capacity $size');
         }
         $this->data = array();
         $this->size = $size;
@@ -60,7 +60,7 @@ class MyArray
         if ($this->size === $this->len) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -73,14 +73,14 @@ class MyArray
         if ($index < 0 || $index >= $this->size) {
             return true;
         }
-        
+
         return false;
     }
 
     /**
      * 在指定位置插入数据
-     * 
-     * @param int $position
+     *
+     * @param int $position 第 position 个位置
      * @param int|null $value
      * @return bool|null
      * @throws Exception
@@ -90,24 +90,25 @@ class MyArray
         if ($this->full()) {
             throw new Exception('Array is full');
         }
+        // 第 position 的位置，数组下标为 position - 1
         $index = $position - 1;
         if ($this->outOfRange($index)) {
             throw new Exception('Index out of range');
         }
-        
+
         for ($i = $this->len; $i > $index; $i--) {
             $this->data[$i] = $this->data[$i - 1];
         }
-        
+
         $this->data[$index] = $value;
         $this->len++;
-        
+
         return $value;
     }
 
     /**
      * 删除第 k 个元素
-     * 
+     *
      * @param int $position
      * @return string|null
      * @throws Exception
@@ -118,20 +119,20 @@ class MyArray
         if ($this->outOfRange($index)) {
             throw new Exception('Index out of range');
         }
-        
+
         $value = $this->data[$index];
         for ($i = $index; $i < $this->len - 1; $i++) {
             $this->data[$i] = $this->data[$i + 1];
         }
         $this->len--;
         unset($this->data[$this->len - 1]);
-        
+
         return $value;
     }
 
     /**
      * 查询第 k 个位置的数据
-     * 
+     *
      * @param $position
      * @return string|null
      * @throws Exception
@@ -142,7 +143,7 @@ class MyArray
         if ($this->outOfRange($index)) {
             throw new Exception('Index out of range');
         }
-        
+
         return $this->data[$index];
     }
 }

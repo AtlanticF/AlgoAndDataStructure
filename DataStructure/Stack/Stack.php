@@ -1,9 +1,9 @@
 <?php
 /**
  * 栈的简单实现
- * 
+ *
  * 栈是一种操作受限的线性表, 只能在同一端执行 入栈 和 出栈操作
- * 
+ *
  * 1. 将指定元素入栈 O(1)
  * 2. 将栈顶元素出栈 O(1)
  * 3. 查询栈中值 等于给定值的数据 O(n)
@@ -36,7 +36,7 @@ class Stack
         if ($size <= 0) {
             throw new Exception('Invalid param $size');
         }
-        
+
         $this->size = $size;
         $this->data = [];
         $this->len = 0;
@@ -44,7 +44,7 @@ class Stack
 
     /**
      * 是否栈满
-     * 
+     *
      * @return bool
      */
     private function full(): bool
@@ -52,13 +52,13 @@ class Stack
         if ($this->size === $this->len) {
             return true;
         }
-        
+
         return false;
     }
 
     /**
      * 是否为空栈
-     * 
+     *
      * @return bool
      */
     private function isEmpty(): bool
@@ -66,13 +66,13 @@ class Stack
         if ($this->len === 0) {
             return true;
         }
-        
+
         return false;
     }
 
     /**
      * 入栈
-     * 
+     *
      * @param string|null $value
      * @return string|null
      * @throws Exception
@@ -82,7 +82,7 @@ class Stack
         if (true === $this->full()) {
             throw new Exception('Stack is full');
         }
-        
+
         $this->data[$this->len] = $value;
         $this->len++;
         return $value;
@@ -90,7 +90,7 @@ class Stack
 
     /**
      * 出栈
-     * 
+     *
      * @return string|null
      */
     public function pop(): ?string
@@ -98,11 +98,11 @@ class Stack
         if (true === $this->isEmpty()) {
             return null;
         }
-        
+
         $value = $this->data[$this->len - 1];
-        unset($this->data[$this->len -1 ]);
+        unset($this->data[$this->len - 1]);
         $this->len--;
-        
+
         return $value;
     }
 }

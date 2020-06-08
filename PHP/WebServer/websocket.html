@@ -6,13 +6,13 @@
 
     <script type="text/javascript">
         let ws;
-        function Send()
-        {
+
+        function Send() {
             ws.send('hello');
             alert('数据已发送');
         }
-        function WebSocketTest()
-        {
+
+        function WebSocketTest() {
             if ("WebSocket" in window) {
                 alert("您的浏览器支持 WebSocket!");
                 // 打开一个 web socket
@@ -22,15 +22,13 @@
                 alert("您的浏览器不支持 WebSocket!");
             }
 
-            ws.onmessage = function (evt)
-            {
+            ws.onmessage = function (evt) {
                 let received_msg = evt.data;
                 console.log(received_msg);
                 alert("数据已接收...");
             };
 
-            ws.onclose = function()
-            {
+            ws.onclose = function () {
                 // 关闭 websocket
                 alert("连接已关闭...");
             };

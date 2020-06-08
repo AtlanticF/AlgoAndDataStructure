@@ -17,7 +17,7 @@ class Node
 
     /**
      * 初始化一个节点
-     * 
+     *
      * Node constructor.
      * @param string|null $data
      */

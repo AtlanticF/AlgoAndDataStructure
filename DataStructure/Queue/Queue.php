@@ -1,11 +1,11 @@
 <?php
 /**
  * 队列的简单实现
- * 
+ *
  * 队列是一种操作受限的线性表, 只允许在队尾入队, 在队头入队
- * 
+ *
  * 重点: 队头和队尾指针; 有限队列中保证内存空间的连续性, 合理利用队头指针解决空间不连续问题
- * 
+ *
  * 1. 入队
  * 2. 出队
  */
@@ -47,7 +47,7 @@ class Queue
         if ($capacity <= 0) {
             throw new Exception('Invalid param $capacity');
         }
-        
+
         $this->capacity = $capacity;
         $this->len = 0;
         $this->data = array();
@@ -58,14 +58,14 @@ class Queue
     /**
      * @return int
      */
-    public function getLen(): int 
+    public function getLen(): int
     {
         return $this->len;
     }
 
     /**
      * 是否队满
-     * 
+     *
      * @return bool
      */
     private function full(): bool
@@ -73,13 +73,13 @@ class Queue
         if ($this->tail === $this->capacity) {
             return true;
         }
-        
+
         return false;
     }
 
     /**
      * 是否空队
-     * 
+     *
      * @return bool
      */
     private function empty(): bool
@@ -87,18 +87,18 @@ class Queue
         if ($this->head === $this->tail) {
             return true;
         }
-        
+
         return false;
     }
 
     /**
      * 入队
-     * 
+     *
      * @param string|null $value
      * @return bool
      * @throws Exception
      */
-    public function enQueue(?string $value): bool 
+    public function enQueue(?string $value): bool
     {
         // 队尾后没有空间
         if ($this->tail === $this->capacity) {
@@ -106,7 +106,7 @@ class Queue
             if ($this->head === 0) {
                 return false;
             }
-            
+
             // 队列没有被占满, 搬移数据
             for ($i = $this->head; $i < $this->tail; $i++) {
                 // [0,0,0,1,2,3] => [1,2,3]
@@ -116,7 +116,7 @@ class Queue
             $this->tail -= $this->head;
             $this->head = 0;
         }
-        
+
         // 数据写入
         $this->data[$this->tail] = $value;
         $this->tail++;
@@ -126,20 +126,20 @@ class Queue
 
     /**
      * 出队
-     * 
+     *
      * @return string|null
      * @throws Exception
      */
-    public function deQueue(): ?string 
+    public function deQueue(): ?string
     {
         if ($this->empty()) {
             throw new Exception('Queue is empty');
         }
-        
+
         $item = $this->data[$this->head];
         $this->head++;
         $this->len--;
-        
+
         return $item;
     }
 }

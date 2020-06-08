@@ -4,7 +4,7 @@ $fork_num = 3;
 
 for ($i = 0; $i < $fork_num; $i++) {
     $pid = pcntl_fork();
-    
+
     if ($pid == 0) {
         // 返回 0 进入子进程
         $childId = getmypid();
@@ -23,11 +23,11 @@ for ($i = 0; $i < $fork_num; $i++) {
 while (count($childIds) > 0) {
     foreach ($childIds as $key => $pid) {
         $res = pcntl_waitpid($pid, $status, WNOHANG);
-        
+
         if ($res == -1 || $res > 0) {
             unset($childIds[$key]);
         }
     }
-    
+
     sleep(1);
 }

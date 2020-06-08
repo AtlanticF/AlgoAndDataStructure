@@ -1,7 +1,7 @@
 <?php
 /**
  * 二分查找的扩展
- * 
+ *
  * 1. 查找第一个值等于给定值的元素
  * 2. 查找最后一个值等于给定值的元素
  * 3. 查找大于等于给定值的第一个元素
@@ -12,7 +12,7 @@ class BinarySearchExtend
 {
     /**
      * 查找第一个值等于给定值的元素
-     * 
+     *
      * @param array $arr
      * @param int $value
      * @return int
@@ -21,7 +21,7 @@ class BinarySearchExtend
     {
         $low = 0;
         $high = count($arr) - 1;
-        
+
         while ($low <= $high) {
             $mid = $low + (($high - $low) >> 1);
             if ($value > $arr[$mid]) {
@@ -33,13 +33,13 @@ class BinarySearchExtend
                 $high = $mid - 1;
             }
         }
-        
+
         return -1;
     }
 
     /**
      * 查找最后一个值等于给定值的元素
-     * 
+     *
      * @param array $arr
      * @param int $value
      * @return int
@@ -48,7 +48,7 @@ class BinarySearchExtend
     {
         $low = 0;
         $high = count($arr) - 1;
-        
+
         while ($low <= $high) {
             $mid = $low + (($high - $low) >> 1);
             if ($value > $arr[$mid]) {
@@ -60,14 +60,14 @@ class BinarySearchExtend
                 $low = $mid + 1;
             }
         }
-        
+
         return -1;
     }
 
 
     /**
      * 查找大于等于给定值的第一个元素
-     * 
+     *
      * @param array $arr
      * @param int $value
      * @return int
@@ -76,7 +76,7 @@ class BinarySearchExtend
     {
         $low = 0;
         $high = count($arr) - 1;
-        
+
         while ($low <= $high) {
             $mid = $low + (($high - $low) >> 1);
             if ($arr[$mid] >= $value) {
@@ -86,13 +86,13 @@ class BinarySearchExtend
                 $low = $mid + 1;
             }
         }
-        
+
         return -1;
     }
 
     /**
      * 查找小于等于给定值的最后一个元素
-     * 
+     *
      * @param array $arr
      * @param int $value
      * @return int
@@ -101,7 +101,7 @@ class BinarySearchExtend
     {
         $low = 0;
         $high = count($arr) - 1;
-        
+
         while ($low <= $high) {
             $mid = $low + (($high - $low) >> 1);
             if ($arr[$mid] <= $value) {
@@ -111,7 +111,7 @@ class BinarySearchExtend
                 $high = $mid - 1;
             }
         }
-        
+
         return -1;
     }
 }

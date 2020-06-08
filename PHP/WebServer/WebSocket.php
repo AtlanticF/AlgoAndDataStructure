@@ -14,7 +14,7 @@ class WebSocket
     protected $httpProtocol = 'HTTP/1.1';
     protected $guid = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
     protected $headerValuesSecAccepted;
-    
+
     protected $hasHandshake = false;
 
     public function __construct(string $host, int $port, int $backLog = 10)
@@ -23,7 +23,7 @@ class WebSocket
         $this->port = $port;
         $this->backLog = $backLog;
     }
-    
+
     public function start()
     {
         $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
@@ -39,9 +39,9 @@ class WebSocket
             $this->log('Error: socket_listen', $socket);
             exit();
         }
-        
+
         echo "{$this->host}:{$this->port} server start!\n";
-        
+
         while (true) {
             $client = null;
             try {
@@ -69,7 +69,7 @@ class WebSocket
 //            socket_close($client);
         }
     }
-    
+
     protected function handshake($socket)
     {
         $this->log("start handshake!");
@@ -100,16 +100,16 @@ class WebSocket
             $this->log('Error: socket_write', $socket);
             exit();
         }
-        
+
         return true;
     }
-    
+
     protected function addHeader($content = '')
     {
         $header = "HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: {$this->headerValuesSecAccepted}\r\nSec-WebSocket-Version: 13\r\nSec-WebSocket-Location: ws://{$this->host}:{$this->port}/\r\n\r\n";
         return $header . $content;
     }
-    
+
 //    protected function handlerRequest($data)
 //    {
 //        $reqArr = explode(PHP_EOL, $data);
@@ -125,12 +125,12 @@ class WebSocket
 //        $key = $this->getWebsocketKey($reqArr[5]);
 //        $accept = $this->getWebsocketAccept($key);
 //    }
-    
+
     protected function setWebsocketAccept($key)
     {
-        $this->headerValuesSecAccepted = base64_encode(sha1($key.$this->guid, true));
+        $this->headerValuesSecAccepted = base64_encode(sha1($key . $this->guid, true));
     }
-    
+
     protected function getWebsocketKey($keyLine)
     {
         $key = '';
@@ -143,17 +143,17 @@ class WebSocket
 
         return $key;
     }
-    
+
     protected function isHttp($headerLine)
     {
         $headerArr = explode(' ', $headerLine);
         if (!empty($headerArr[2] && trim($headerArr[2]) == $this->httpProtocol)) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     protected function isUpgradeWebsocket($upgradeLine)
     {
         $upgradeArr = explode(':', $upgradeLine);
@@ -162,10 +162,10 @@ class WebSocket
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
     protected function log($msg, $socket = null)
     {
         $content = $msg;
