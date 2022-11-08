@@ -25,12 +25,12 @@ class SimpleBinarySearch
         $high = count($arr) - 1;
 
         while ($low <= $high) {
-            $mid = floor(($low + $high) / 2);
+            $mid = ($low + $high) >> 1;
             if ($arr[$mid] == $value) {
                 return $mid;
-            } elseif ($arr[$low] < $arr[$mid]) {
+            } elseif ($arr[$mid] < $value) {
                 $low = $mid + 1;
-            } else {
+            } elseif ($arr[$mid] > $value) {
                 $high = $mid - 1;
             }
         }
@@ -64,3 +64,5 @@ class SimpleBinarySearch
         }
     }
 }
+
+echo (new SimpleBinarySearch())->searchV1([14,15,16,22,53,60], 60);
