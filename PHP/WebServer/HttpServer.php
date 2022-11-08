@@ -58,6 +58,8 @@ class HttpServer
                 // 处理读取的数据
                 $response = $this->requestHandler($request);
                 // 响应写回 socket
+                // Context Switch: Application -> socket buffer
+                // Kernel: socket buffer -> DMA -> NIC buffer
                 socket_write($client, $response);
                 // 关闭 socket
                 socket_close($client);
@@ -70,7 +72,7 @@ class HttpServer
 
     public function requestHandler($request)
     {
-        file_put_contents('/var/log/php-server/debug.log', $request . "\n", FILE_APPEND);
+        file_put_contents('/tmp/php-server-debug.log', $request . "\n", FILE_APPEND);
         // 解析请求，获取静态文件数据响应
         $requestArr = explode(" ", $request);
         // 没有请求参数
@@ -90,6 +92,8 @@ class HttpServer
         echo "request: {$filename}\n";
         if (file_exists($filename)) {
             // 读取静态文件内容
+            // Kernel: Disk -> DMA -> read buffer
+            // Context Switch: read buffer -> Application
             $content = file_get_contents($filename);
             return $this->addHeader($content);
         } else {
